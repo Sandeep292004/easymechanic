@@ -1,0 +1,421 @@
+{
+	"info": {
+		"_postman_id": "easymechanic-api-v1",
+		"name": "EASY MECHANIC API",
+		"description": "Complete API collection for EASY MECHANIC Android app backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "User Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"phone\": \"1234567890\",\n  \"password\": \"password123\",\n  \"vehicle_type\": \"Car\",\n  \"vehicle_number\": \"ABC123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/user_register.php",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "user_register.php"]
+						}
+					}
+				},
+				{
+					"name": "Mechanic Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Mechanic Name\",\n  \"email\": \"mechanic@example.com\",\n  \"phone\": \"9876543210\",\n  \"password\": \"password123\",\n  \"specialization\": \"Engine Repair\",\n  \"experience_years\": 5\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/mechanic_register.php",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "mechanic_register.php"]
+						}
+					}
+				},
+				{
+					"name": "User Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/user_login.php",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "user_login.php"]
+						}
+					}
+				},
+				{
+					"name": "Mechanic Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"mechanic@example.com\",\n  \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/mechanic_login.php",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "mechanic_login.php"]
+						}
+					}
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/auth/logout.php",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "logout.php"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Mechanic",
+			"item": [
+				{
+					"name": "Update Location",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{mechanic_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"latitude\": 28.6139,\n  \"longitude\": 77.2090\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/mechanic/update_location.php",
+							"host": ["{{base_url}}"],
+							"path": ["mechanic", "update_location.php"]
+						}
+					}
+				},
+				{
+					"name": "Find Nearby Mechanics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/mechanic/find_mechanics.php?latitude=28.6139&longitude=77.2090&radius=10",
+							"host": ["{{base_url}}"],
+							"path": ["mechanic", "find_mechanics.php"],
+							"query": [
+								{
+									"key": "latitude",
+									"value": "28.6139"
+								},
+								{
+									"key": "longitude",
+									"value": "77.2090"
+								},
+								{
+									"key": "radius",
+									"value": "10"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Toggle Availability",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{mechanic_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"is_available\": true\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/mechanic/toggle_availability.php",
+							"host": ["{{base_url}}"],
+							"path": ["mechanic", "toggle_availability.php"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Service Requests",
+			"item": [
+				{
+					"name": "Create Service Request",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{user_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"issue_description\": \"Engine not starting, makes clicking sound\",\n  \"latitude\": 28.6139,\n  \"longitude\": 77.2090,\n  \"address\": \"123 Main Street, New Delhi\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/requests/create_request.php",
+							"host": ["{{base_url}}"],
+							"path": ["requests", "create_request.php"]
+						}
+					}
+				},
+				{
+					"name": "Accept Service Request",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{mechanic_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"request_id\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/requests/accept_request.php",
+							"host": ["{{base_url}}"],
+							"path": ["requests", "accept_request.php"]
+						}
+					}
+				},
+				{
+					"name": "Complete Service Request",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{mechanic_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"request_id\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/requests/complete_request.php",
+							"host": ["{{base_url}}"],
+							"path": ["requests", "complete_request.php"]
+						}
+					}
+				},
+				{
+					"name": "Get Service Requests",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{user_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/requests/get_requests.php?type=user&status=pending",
+							"host": ["{{base_url}}"],
+							"path": ["requests", "get_requests.php"],
+							"query": [
+								{
+									"key": "type",
+									"value": "user"
+								},
+								{
+									"key": "status",
+									"value": "pending"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Payment",
+			"item": [
+				{
+					"name": "Process Payment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{user_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"service_request_id\": 1,\n  \"amount\": 500.00,\n  \"payment_method\": \"cash\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/payment/process_payment.php",
+							"host": ["{{base_url}}"],
+							"path": ["payment", "process_payment.php"]
+						}
+					}
+				},
+				{
+					"name": "Get Payment History",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{user_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/payment/get_payments.php",
+							"host": ["{{base_url}}"],
+							"path": ["payment", "get_payments.php"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "AI Troubleshooting",
+			"item": [
+				{
+					"name": "Get Troubleshooting Steps",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"problem_description\": \"My car engine won't start\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/ai/troubleshoot.php",
+							"host": ["{{base_url}}"],
+							"path": ["ai", "troubleshoot.php"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Health Check",
+			"item": [
+				{
+					"name": "API Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/index.php",
+							"host": ["{{base_url}}"],
+							"path": ["index.php"]
+						}
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost/easymechanic/api",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "user_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "mechanic_token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
+
